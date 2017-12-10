@@ -164,6 +164,7 @@ downloadWorkshopMods() {
 		cmds+=("+workshop_download_item 107410 $mod validate")
 	done
 
+	echo "$STEAM_PATH_EXEC +login $STEAM_USER $STEAM_PASS +force_install_dir $SERVER_PATH ${cmds[@]} +quit"
 	$STEAM_PATH_EXEC +login $STEAM_USER $STEAM_PASS +force_install_dir $SERVER_PATH ${cmds[@]} +quit
 }
 
@@ -178,7 +179,7 @@ updateMods () {
     do
         steamParams="$steamParams +workshop_download_item 107410 $mod"
     done
-    $STEAM_PATH_EXEC +login $STEAM_USER $STEAM_PASS$steamParams
+    $STEAM_PATH_EXEC +login $STEAM_USER $STEAM_PASS $steamParams
 
     for mod in "${list[@]}"
     do
