@@ -214,13 +214,13 @@ updateMods() {
         downloadWorkshopMods
         #update all keys
         local mods=$(getWorkshopCollectionMods)
-        fCmd=()
+        fCmd="("
         for eK in ${SERVER_KEYS_EXCEPT[@]}
         do
-                fCmd+=("-not -name '$eK'")
+                fCmd="$fCmd\b$eK\b|"
         done
         #remove existing keys except a3.bikey and keys listed in SERVER_KEYS_EXCEPT
-        find $SERVER_PATH/keys -type f -not -name 'a3.bikey' ${fCmd[@]} -delete
+        find $SERVER_PATH/keys -type f -regex-type posix-extended -not -regex "^.*$fCmd" -delete
         #copy the keys to $SERVER_PATH/keys
         for mod in ${mods[@]}
         do
